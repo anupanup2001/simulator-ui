@@ -1,0 +1,45 @@
+<div #viewport class="blox-snippet-page">
+  <header [mdcTopAppBar]="'default'" [viewport]="viewport" [fixedAdjust]="fixedAdjust">
+    <div mdcTopAppBarRow>
+      <section mdcTopAppBarSection alignStart>
+        <a href="javascript:void(0)" mdcTopAppBarNavIcon class="material-icons">menu</a>
+        <span mdcTopAppBarTitle>Toolbar</span>
+      </section>
+      <section mdcTopAppBarSection alignEnd>
+        <a href="javascript:void(0)" mdcTopAppBarAction class="material-icons" label="Download">file_download</a>
+        <a href="javascript:void(0)" mdcTopAppBarAction class="material-icons" label="Print this page">print</a>
+        <a href="javascript:void(0)" mdcTopAppBarAction class="material-icons" label="Bookmark this page">more_vert</a>
+      </section>
+
+    </div>
+
+  </header>
+  <main #fixedAdjust>
+    <p>Hello Worlds</p>
+    <button mdcButton (click)="connect()">Connect</button>
+    <button mdcButton (click)="disconnect()">Disconnect</button>
+    <button mdcButton (click)="sendOrder()">Send Order</button>
+    <div>
+      <p> Messages </p>
+      <p *ngFor="let message of messages">{{message}}</p>
+    </div>
+
+  </main>
+</div>
+<!--mdc-top-app-bar short [scrollTarget]="mainContent">
+  <mdc-top-app-bar-row>
+    <mdc-top-app-bar-section align="start" title="App">
+      <button mdcTopAppBarNavIcon>
+        <mdc-icon>menu</mdc-icon>
+      </button>
+    </mdc-top-app-bar-section>
+    <mdc-top-app-bar-section align="end">
+      <mdc-icon mdcTopAppBarActionItem>file_download</mdc-icon>
+    </mdc-top-app-bar-section>
+  </mdc-top-app-bar-row>
+</mdc-top-app-bar>
+<div #mainContent class="mainContainer">
+  <p>Hello Worlds</p>
+  <button mdc-button primary (click)="connect()">Connect</button>
+  <button mdc-button primary>Disconnect</button>
+</div-->
