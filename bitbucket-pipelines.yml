@@ -17,5 +17,5 @@ pipelines:
               - npm install
               - npm run test:prod
               - npm run build
-            artifacts:
-              - dist/**
+          artifacts:
+            - dist/**
