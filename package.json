@@ -22,6 +22,8 @@
     "@angular/router": "~11.0.5",
     "@blox/material": "^0.18.1",
     "@stomp/ng2-stompjs": "^8.0.0",
+    "ag-grid-angular": "^24.1.0",
+    "ag-grid-community": "^24.1.0",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

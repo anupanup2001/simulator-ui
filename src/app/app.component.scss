@@ -19,17 +19,18 @@
 }
 
 .session-container div {
-  border: solid;
+  border: 1px solid;
 }
 
 .order-blotter {
-  width: 800px;
-  height: 500px;
+  flex-basis: 80%;
+  min-height: 500px;
   flex-grow: 1;
+  overflow: hidden;
 }
 
 .fix-fields {
-  width: 300px;
+  flex-basis: 20%;
 }
 
 .fix-events-container {

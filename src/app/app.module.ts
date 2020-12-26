@@ -2,11 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {MaterialModule} from "@blox/material";
-import {HttpClientModule} from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
-import {InjectableRxStompConfig, RxStompService, rxStompServiceFactory} from "@stomp/ng2-stompjs";
-import {myRxStompConfig} from "./my-rx-stomp.config";
+import {MaterialModule} from '@blox/material';
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
+import {InjectableRxStompConfig, RxStompService, rxStompServiceFactory} from '@stomp/ng2-stompjs';
+import {myRxStompConfig} from './my-rx-stomp.config';
+import {AgGridModule} from 'ag-grid-angular';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {myRxStompConfig} from "./my-rx-stomp.config";
     BrowserModule,
     FormsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    AgGridModule.withComponents([])
   ],
   providers: [
     {

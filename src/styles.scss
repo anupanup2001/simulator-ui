@@ -6,3 +6,5 @@ $mdc-theme-background: #fff;
 
 // import theming for all mdc components:
 @import "material-components-web/material-components-web";
+@import "ag-grid-community/dist/styles/ag-grid.css";
+@import "ag-grid-community/dist/styles/ag-theme-alpine.css";
