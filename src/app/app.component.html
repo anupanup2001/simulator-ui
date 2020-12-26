@@ -2,28 +2,41 @@
   <header [mdcTopAppBar]="'default'" [viewport]="viewport" [fixedAdjust]="fixedAdjust">
     <div mdcTopAppBarRow>
       <section mdcTopAppBarSection alignStart>
-        <a href="javascript:void(0)" mdcTopAppBarNavIcon class="material-icons">menu</a>
+        <a href="javascript:void(0)" mdcTopAppBarNavIcon mdcIconButton class="material-icons">menu</a>
         <span mdcTopAppBarTitle>Toolbar</span>
       </section>
       <section mdcTopAppBarSection alignEnd>
-        <a href="javascript:void(0)" mdcTopAppBarAction class="material-icons" label="Download">file_download</a>
-        <a href="javascript:void(0)" mdcTopAppBarAction class="material-icons" label="Print this page">print</a>
-        <a href="javascript:void(0)" mdcTopAppBarAction class="material-icons" label="Bookmark this page">more_vert</a>
+        <a href="javascript:void(0)" mdcTopAppBarAction mdcIconButton class="material-icons" label="Download">file_download</a>
+        <a href="javascript:void(0)" mdcTopAppBarAction mdcIconButton class="material-icons" label="Print this page">print</a>
+        <a href="javascript:void(0)" mdcTopAppBarAction mdcIconButton class="material-icons" label="Bookmark this page">more_vert</a>
       </section>
 
     </div>
 
   </header>
   <main #fixedAdjust>
-    <p>Hello Worlds</p>
-    <button mdcButton (click)="connect()">Connect</button>
-    <button mdcButton (click)="disconnect()">Disconnect</button>
-    <button mdcButton (click)="sendOrder()">Send Order</button>
-    <div>
-      <p> Messages </p>
-      <p *ngFor="let message of messages">{{message}}</p>
-    </div>
+    <div class="simulator">
+      <div class="session-toolbar">
+        <button mdcButton (click)="connect()">Connect</button>
+        <button mdcButton (click)="disconnect()">Disconnect</button>
+        <button mdcButton (click)="sendOrder()">Send Order</button>
+      </div>
+      <div class="session-container">
+        <div class="order-and-fix-fields">
+          <div class="order-blotter">
 
+          </div>
+          <div class="fix-fields">
+
+          </div>
+        </div>
+        <div class="fix-events-container">
+          <div class="fix-events">
+            <p *ngFor="let message of messages">{{message}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 </div>
 <!--mdc-top-app-bar short [scrollTarget]="mainContent">

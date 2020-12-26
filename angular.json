@@ -133,5 +133,10 @@
   "defaultProject": "webui",
   "cli": {
     "analytics": "555c7465-9256-45aa-92f1-99375fa8b303"
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
   }
 }
