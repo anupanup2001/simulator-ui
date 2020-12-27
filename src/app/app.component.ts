@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {RxStompService} from '@stomp/ng2-stompjs';
 import {Message} from '@stomp/stompjs';
 import {Order} from './order';
+import {FixEvent} from './fix-events/fix-event';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -26,11 +28,25 @@ export class AppComponent {
     {OrderID: 'ORDER2', Symbol: 'TSLA', Side: 'Buy', Price: '10.2', Qty: 50, Status: 'New'},
     {OrderID: 'ORDER3', Symbol: 'AAPL', Side: 'Sell', Price: '23.0', Qty: 25, Status: 'Rejected'}
   ];
-  constructor(private httpClient: HttpClient, private rxStompService: RxStompService) {}
+
+  fixEvents: Array<FixEvent> = [];
+  fixEventsSubject: Subject<void> = new Subject<void>();
+  constructor(private httpClient: HttpClient, private rxStompService: RxStompService) {
+    const fixEvent: FixEvent = {Event: 'NewOrderSingle', Message: 'ABCD'};
+    this.fixEvents.push(fixEvent);
+
+  }
+
+  emitEventToChild() {
+    this.fixEventsSubject.next();
+  }
   connect() {
     this.rxStompService.watch('/topic/data').subscribe((message: Message) => {
       console.log(message.body);
       this.messages.push(message.body);
+      const fixEvent: FixEvent = {Event: 'NewOrderSingle', Message: message.body};
+      this.fixEvents.push(fixEvent);
+      this.emitEventToChild();
     });
     this.httpClient.get('/api/connect').subscribe(data => {
       // this.rxStompService.watch('/topic/data').subscribe((message: Message) => {

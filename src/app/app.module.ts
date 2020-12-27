@@ -8,10 +8,12 @@ import {FormsModule} from '@angular/forms';
 import {InjectableRxStompConfig, RxStompService, rxStompServiceFactory} from '@stomp/ng2-stompjs';
 import {myRxStompConfig} from './my-rx-stomp.config';
 import {AgGridModule} from 'ag-grid-angular';
+import { FixEventsComponent } from './fix-events/fix-events.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FixEventsComponent
   ],
   imports: [
     BrowserModule,
