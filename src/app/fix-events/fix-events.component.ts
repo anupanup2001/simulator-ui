@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, EventEmitter, Output} from '@angular/core';
 import {FixEvent} from './fix-event';
 import {Observable, Subscription} from 'rxjs';
 
@@ -18,6 +18,7 @@ export class FixEventsComponent implements OnInit, OnChanges {
   private eventsSubscription: Subscription;
   @Input() rowData: Array<FixEvent>;
   @Input() rowUpdated: Observable<void>;
+  @Output() messageSelected = new EventEmitter<string>();
   constructor() { }
 
   ngOnInit(): void {
@@ -39,6 +40,10 @@ export class FixEventsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+  }
+
+  rowSelected(params) {
+    this.messageSelected.emit(params.data.Message);
   }
 
 }

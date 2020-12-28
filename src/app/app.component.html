@@ -37,13 +37,13 @@
             </ag-grid-angular>
           </div>
           <div class="fix-fields">
-
+            <app-fix-fields [message]="selectedMessage"></app-fix-fields>
           </div>
         </div>
         <div class="fix-events-container">
           <div class="fix-events">
             <!--p *ngFor="let message of messages">{{message}}</p-->
-            <app-fix-events [rowData]="fixEvents" [rowUpdated]="fixEventsSubject.asObservable()"></app-fix-events>
+            <app-fix-events [rowData]="fixEvents" [rowUpdated]="fixEventsSubject.asObservable()" (messageSelected)="messageSelected($event)"></app-fix-events>
           </div>
         </div>
       </div>

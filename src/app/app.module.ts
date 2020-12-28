@@ -9,11 +9,13 @@ import {InjectableRxStompConfig, RxStompService, rxStompServiceFactory} from '@s
 import {myRxStompConfig} from './my-rx-stomp.config';
 import {AgGridModule} from 'ag-grid-angular';
 import { FixEventsComponent } from './fix-events/fix-events.component';
+import { FixFieldsComponent } from './fix-fields/fix-fields.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FixEventsComponent
+    FixEventsComponent,
+    FixFieldsComponent
   ],
   imports: [
     BrowserModule,

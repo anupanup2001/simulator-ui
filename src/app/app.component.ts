@@ -5,6 +5,7 @@ import {Message} from '@stomp/stompjs';
 import {Order} from './order';
 import {FixEvent} from './fix-events/fix-event';
 import {Subject} from 'rxjs';
+import {FieldValue} from './fix-fields/field-value';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,7 @@ export class AppComponent {
 
   fixEvents: Array<FixEvent> = [];
   fixEventsSubject: Subject<void> = new Subject<void>();
+  selectedMessage: Array<FieldValue> = [];
   constructor(private httpClient: HttpClient, private rxStompService: RxStompService) {
     const fixEvent: FixEvent = {Event: 'NewOrderSingle', Message: 'ABCD'};
     this.fixEvents.push(fixEvent);
@@ -76,5 +78,14 @@ export class AppComponent {
 
   sizeColumns(params) {
     params.api.sizeColumnsToFit();
+  }
+
+  messageSelected(param: string) {
+    this.selectedMessage = [];
+    for (const i of param.split('\x01')) {
+      const fv: FieldValue = {field: i.split('=')[0], value: i.split('=')[1]};
+      this.selectedMessage.push(fv);
+      console.log(fv);
+    }
   }
 }
