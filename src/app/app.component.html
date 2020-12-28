@@ -56,7 +56,7 @@
         <div class="fix-events-container">
           <div class="fix-events">
             <!--p *ngFor="let message of messages">{{message}}</p-->
-            <app-fix-events [rowData]="fixEvents" [rowUpdated]="fixEventsSubject.asObservable()" (messageSelected)="messageSelected($event)"></app-fix-events>
+            <app-fix-events [fixEvents]="fixEvents" [rowUpdated]="fixEventsSubject.asObservable()" (messageSelected)="messageSelected($event)"></app-fix-events>
           </div>
         </div>
       </div>

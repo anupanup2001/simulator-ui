@@ -1,4 +1,4 @@
 export interface FixEvent {
-  Event: string;
-  Message: string;
+  eventType: string;
+  fixMessage: string;
 }

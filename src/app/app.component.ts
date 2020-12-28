@@ -34,7 +34,7 @@ export class AppComponent {
   fixEventsSubject: Subject<void> = new Subject<void>();
   selectedMessage: Array<FieldValue> = [];
   constructor(private httpClient: HttpClient, private rxStompService: RxStompService) {
-    const fixEvent: FixEvent = {Event: 'NewOrderSingle', Message: 'ABCD'};
+    const fixEvent: FixEvent = {eventType: 'NewOrderSingle', fixMessage: 'ABCD'};
     this.fixEvents.push(fixEvent);
 
   }
@@ -46,7 +46,7 @@ export class AppComponent {
     this.rxStompService.watch('/topic/data').subscribe((message: Message) => {
       console.log(message.body);
       this.messages.push(message.body);
-      const fixEvent: FixEvent = {Event: 'NewOrderSingle', Message: message.body};
+      const fixEvent: FixEvent = {eventType: 'NewOrderSingle', fixMessage: message.body};
       this.fixEvents.push(fixEvent);
       this.emitEventToChild();
     });

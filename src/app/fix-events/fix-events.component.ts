@@ -1,6 +1,8 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges, EventEmitter, Output} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, EventEmitter, Output, ViewChild} from '@angular/core';
 import {FixEvent} from './fix-event';
 import {Observable, Subscription} from 'rxjs';
+import {MatTable, MatTableDataSource} from '@angular/material/table';
+import {SelectionModel} from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-fix-events',
@@ -16,18 +18,26 @@ export class FixEventsComponent implements OnInit, OnChanges {
 
   private gridApi;
   private eventsSubscription: Subscription;
-  @Input() rowData: Array<FixEvent>;
+  @Input() fixEvents: FixEvent[];
   @Input() rowUpdated: Observable<void>;
   @Output() messageSelected = new EventEmitter<string>();
+  displayedColumns: string[] = ['eventType', 'fixMessage'];
+  @ViewChild(MatTable) table: MatTable<any>;
+  dataSource: MatTableDataSource<FixEvent>;
+  selection = new SelectionModel<FixEvent>(false, []);
   constructor() { }
 
   ngOnInit(): void {
     // let evnt: FixEvent = {Event: 'NewOrderSingle', Message: '35=D|38=10'};
     // this.rowData.push(evnt);
     this.eventsSubscription = this.rowUpdated.subscribe(() => {
-      this.gridApi.setRowData(this.rowData);
+      // this.gridApi.setRowData(this.fixEvents);
+      this.table.renderRows();
       console.log('Got event in child');
+      console.log(this.fixEvents);
     });
+
+    this.dataSource = new MatTableDataSource<FixEvent>(this.fixEvents);
   }
 
   onGridReady(params) {
@@ -42,8 +52,8 @@ export class FixEventsComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
   }
 
-  rowSelected(params) {
-    this.messageSelected.emit(params.data.Message);
+  rowSelected(params: FixEvent) {
+    this.messageSelected.emit(params.fixMessage);
   }
 
 }
