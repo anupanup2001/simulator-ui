@@ -24,12 +24,14 @@
 
 .order-blotter {
   flex-basis: 80%;
-  min-height: 500px;
+  height: 500px;
   flex-grow: 1;
 }
 
 .fix-fields {
   flex-basis: 20%;
+  max-height: 500px;
+  overflow: auto;
 }
 
 .fix-events-container {
