@@ -8,7 +8,8 @@ import {FieldValue} from './field-value';
 })
 export class FixFieldsComponent implements OnInit {
 
-  @Input() message: Array<FieldValue>;
+  @Input() message: FieldValue[];
+  displayedColumns: string[] = ['field', 'value'];
   constructor() { }
 
   ngOnInit(): void {
