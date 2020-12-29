@@ -1,11 +1,10 @@
 import {Component} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {RxStompService} from '@stomp/ng2-stompjs';
-import {Message} from '@stomp/stompjs';
 import {Order} from './order';
 import {FixEvent} from './fix-events/fix-event';
 import {Subject} from 'rxjs';
 import {FieldValue} from './fix-fields/field-value';
+import {FixManagerService} from './fix-manager.service';
 
 @Component({
   selector: 'app-root',
@@ -33,8 +32,8 @@ export class AppComponent {
   fixEvents: Array<FixEvent> = [];
   fixEventsSubject: Subject<void> = new Subject<void>();
   selectedMessage: Array<FieldValue> = [];
-  constructor(private httpClient: HttpClient, private rxStompService: RxStompService) {
-    const fixEvent: FixEvent = {eventType: 'NewOrderSingle', fixMessage: 'ABCD'};
+  constructor(private httpClient: HttpClient, private fixConnectionService: FixManagerService) {
+    const fixEvent: FixEvent = {eventType: 'NewOrderSingle', fixMessage: '35=D\x0149=BANZAI\x0110=000'};
     this.fixEvents.push(fixEvent);
 
   }
@@ -43,18 +42,19 @@ export class AppComponent {
     this.fixEventsSubject.next();
   }
   connect() {
-    this.rxStompService.watch('/topic/data').subscribe((message: Message) => {
-      console.log(message.body);
-      this.messages.push(message.body);
-      const fixEvent: FixEvent = {eventType: 'NewOrderSingle', fixMessage: message.body};
-      this.fixEvents.push(fixEvent);
+    this.fixConnectionService.streamEvents('BANZAI-ABCD').subscribe(x => {
+      this.fixEvents.push(x);
       this.emitEventToChild();
     });
+    // this.rxStompService.watch('/topic/data').subscribe((message: Message) => {
+    //   console.log(message.body);
+    //   this.messages.push(message.body);
+    //   const fixEvent: FixEvent = {eventType: 'NewOrderSingle', fixMessage: message.body};
+    //   this.fixEvents.push(fixEvent);
+    //   this.emitEventToChild();
+    // });
     this.httpClient.get('/api/connect').subscribe(data => {
-      // this.rxStompService.watch('/topic/data').subscribe((message: Message) => {
-      //   console.log(message.body);
-      //   this.messages.push(message.body);
-      // });
+
       console.log(data); });
   }
 
@@ -81,11 +81,6 @@ export class AppComponent {
   }
 
   messageSelected(param: string) {
-    this.selectedMessage = [];
-    for (const i of param.split('\x01')) {
-      const fv: FieldValue = {field: i.split('=')[0], value: i.split('=')[1]};
-      this.selectedMessage.push(fv);
-      console.log(fv);
-    }
+    this.selectedMessage = this.fixConnectionService.prettifyFixMessage(param);
   }
 }
