@@ -1,29 +1,66 @@
 <div #viewport class="blox-snippet-page">
-  <header [mdcTopAppBar]="'default'" [viewport]="viewport" [fixedAdjust]="fixedAdjust">
-    <div mdcTopAppBarRow>
-      <section mdcTopAppBarSection alignStart>
-        <a href="javascript:void(0)" mdcTopAppBarNavIcon class="material-icons">menu</a>
-        <span mdcTopAppBarTitle>Toolbar</span>
-      </section>
-      <section mdcTopAppBarSection alignEnd>
-        <a href="javascript:void(0)" mdcTopAppBarAction class="material-icons" label="Download">file_download</a>
-        <a href="javascript:void(0)" mdcTopAppBarAction class="material-icons" label="Print this page">print</a>
-        <a href="javascript:void(0)" mdcTopAppBarAction class="material-icons" label="Bookmark this page">more_vert</a>
-      </section>
+  <mat-toolbar color="primary">
+    <button mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Trading Simulators</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>share</mat-icon>
+    </button>
+  </mat-toolbar>
+<!--  <header [mdcTopAppBar]="'default'" [viewport]="viewport" [fixedAdjust]="fixedAdjust">-->
+<!--    <div mdcTopAppBarRow>-->
+<!--      <section mdcTopAppBarSection alignStart>-->
+<!--        <a href="javascript:void(0)" mdcTopAppBarNavIcon mdcIconButton class="material-icons">menu</a>-->
+<!--        <span mdcTopAppBarTitle>Toolbar</span>-->
+<!--      </section>-->
+<!--      <section mdcTopAppBarSection alignEnd>-->
+<!--        <a href="javascript:void(0)" mdcTopAppBarAction mdcIconButton class="material-icons" label="Download">file_download</a>-->
+<!--        <a href="javascript:void(0)" mdcTopAppBarAction mdcIconButton class="material-icons" label="Print this page">print</a>-->
+<!--        <a href="javascript:void(0)" mdcTopAppBarAction mdcIconButton class="material-icons" label="Bookmark this page">more_vert</a>-->
+<!--      </section>-->
 
-    </div>
+<!--    </div>-->
 
-  </header>
+<!--  </header>-->
   <main #fixedAdjust>
-    <p>Hello Worlds</p>
-    <button mdcButton (click)="connect()">Connect</button>
-    <button mdcButton (click)="disconnect()">Disconnect</button>
-    <button mdcButton (click)="sendOrder()">Send Order</button>
-    <div>
-      <p> Messages </p>
-      <p *ngFor="let message of messages">{{message}}</p>
-    </div>
+    <div class="simulator">
+      <div class="session-toolbar">
+        <button mat-button color="primary" (click)="connect()">Connect</button>
+        <button mat-button (click)="disconnect()">Disconnect</button>
+        <button mat-button (click)="sendOrder()">Send Order</button>
+      </div>
+      <div class="session-container">
+        <div class="order-and-fix-fields">
+          <div class="order-blotter">
+            <ag-grid-angular
+              style="width: 100%; height: 100%;"
+              class="ag-theme-alpine"
+              [rowData]="rowData"
+              [columnDefs]="columnDefs"
+              rowSelection="single"
+              (gridReady)="sizeColumns($event)"
+              (gridSizeChanged)="sizeColumns($event)"
 
+            >
+            </ag-grid-angular>
+          </div>
+          <div class="fix-fields">
+            <app-fix-fields [message]="selectedMessage"></app-fix-fields>
+          </div>
+        </div>
+        <div class="fix-events-container">
+          <div class="fix-events">
+            <!--p *ngFor="let message of messages">{{message}}</p-->
+            <app-fix-events [fixEvents]="fixEvents" [rowUpdated]="fixEventsSubject.asObservable()" (messageSelected)="messageSelected($event)"></app-fix-events>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 </div>
 <!--mdc-top-app-bar short [scrollTarget]="mainContent">
